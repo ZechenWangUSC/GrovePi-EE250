@@ -51,6 +51,6 @@ if __name__ == '__main__':
         deg = round( (voltage * max_angle) / grove_vcc, 2)
         print("degrees:" + str(deg))
 
-        val = grovepi.ultrasonicRead(PORT)
-        print("Distance:" + str(val)
-        lcd.setText(str(deg)+ "cm\n" + str(val))
+        dist = grovepi.ultrasonicRead(PORT)
+        print("Distance:" + str(dist)
+        lcd.setText_norefresh("%3dcm\n%3dcm" % (val,dist))
