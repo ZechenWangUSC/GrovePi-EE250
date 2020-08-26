@@ -31,7 +31,7 @@ be true"""
 if __name__ == '__main__':
     PORT = 4    # D4
     meter = 0   # A0
-    lcd.setRGB(153,255,51)  #I love this color
+    lcd.setRGB(153,255,51)
 
     grovepi.pinMode(meter, "INPUT")
 
@@ -45,12 +45,13 @@ if __name__ == '__main__':
         #sleep for a reasonable time of 200ms between each iteration.
         time.sleep(0.2)
 
-        #ref: grove_rotary_angle_sensor.py
-        val = grovepi.analogRead(meter)
-        voltage = round( (float)(val) * adc_ref / 1023, 2)
-        deg = round( (voltage * max_angle) / grove_vcc, 2)
+        deg = grovepi.analogRead(meter) #range: [0,1023]
         print("degrees:" + str(deg))
 
         dist = grovepi.ultrasonicRead(PORT)
-        print("Distance:" + str(dist)
-        lcd.setText_norefresh("%3dcm\n%3dcm" % (val,dist))
+        print("Distance:" + str(dist))
+        
+        if dist < deg:
+            lcd.setText_norefresh("%3dcm OBJ PRES\n%3dcm" % (deg,dist))
+        else:
+            lcd.setText_norefresh("%3dcm          \n%3dcm" % (deg,dist))
