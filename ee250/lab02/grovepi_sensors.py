@@ -1,8 +1,8 @@
 """ EE 250L Lab 02: GrovePi Sensors
-
-List team members here.
+By: Zechen Wang
 
 Insert Github repository link here.
+https://github.com/ZechenWangUSC/GrovePi-EE250
 """
 
 """python3 interpreters in Ubuntu (and other linux distros) will look in a 
@@ -35,18 +35,13 @@ if __name__ == '__main__':
 
     grovepi.pinMode(meter, "INPUT")
 
-    adc_ref = 5
-    grove_vcc = 5
-    max_angle = 300
-
-
     while True:
         #So we do not poll the sensors too quickly which may introduce noise,
         #sleep for a reasonable time of 200ms between each iteration.
         time.sleep(0.2)
 
-        deg = grovepi.analogRead(meter) #range: [0,1023]
-        print("degrees:" + str(deg))
+        deg = round( grovepi.analogRead(meter) * 300 / 1023) #range: [0,300]
+        print("Rot Sensor:" + str(deg))
 
         dist = grovepi.ultrasonicRead(PORT)
         print("Distance:" + str(dist))
